@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-// import '../tab2/index.css';
 
 class Tab1 extends Component{
     constructor(props){
@@ -10,7 +9,9 @@ class Tab1 extends Component{
         if(window.location.href.split('/')[3] == 1) {
             require('./index.css');
         } else if(window.location.href.split('/')[3] == 2) {
-            require('../tab2/index.css');
+            require('./diagram2.css');
+        }else {
+            require('./index.css');
         }
     }
 

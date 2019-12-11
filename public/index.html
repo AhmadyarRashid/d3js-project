@@ -57,28 +57,18 @@
         .ready(function () {
             //window.alert(window.location.href.split('/')[3]);
             const decision = window.location.href.split('/')[3];
-            if(decision == 1){
-                $.getJSON("https://raw.githubusercontent.com/biolchen/dataScience/master/data/cytokine3.json",
-                    function (data) {
-                        //console.log(data)
-                        // params: data set, id of the parent, "middle" point
-                        // middle point is optional, but for this data set
-                        d3.heatMapWithDendro(data, "#heatmap1", 5000);
-                    }
-                );
-            }
             if(decision == 2){
                 $.getJSON('https://gist.githubusercontent.com/sanshu/1106ceacc42dc99c1b842d954ae32780/raw/8e0e10ba3f6fcdf8002fdfa6a65bdc99f0d5e356/data.json',
                     function (data) {
                         console.log(data);
                         // params: data set, id of the parent, "middle" point
                         // middle point is optional, but for this data set
-                        // d3.heatmapDendro(data, "#heatmap2", 5000);
-                        d3.heatMapWithDendro(data, "#heatmap1", 5000);
+                        d3.heatmapDendro(data, "#heatmap1", 5000);
+                       // d3.heatMapWithDendro(data, "#heatmap1", 5000);
                     }
                 );
             }
-            if(decision == 3){
+            else if(decision == 3){
                 var margin = {top: 80, right: 25, bottom: 30, left: 100},
                     width = 750 - margin.left - margin.right,
                     height = 850 - margin.top - margin.bottom;
@@ -223,6 +213,16 @@
                     .style("max-width", 400)
                     .text("Subtitle");  // 在这里修改副标题
 
+            }
+            else {
+                $.getJSON("https://raw.githubusercontent.com/biolchen/dataScience/master/data/cytokine3.json",
+                    function (data) {
+                        //console.log(data)
+                        // params: data set, id of the parent, "middle" point
+                        // middle point is optional, but for this data set
+                        d3.heatMapWithDendro(data, "#heatmap1", 5000);
+                    }
+                );
             }
         });
 
@@ -562,16 +562,16 @@
                 .on("mouseover", function (d) {
                     d3.select(this).classed("cell-hover", true);
                     //Update the tooltip position and value
-                    d3.select("#d3tooltip2")
+                    d3.select("#d3tooltip1")
                         .style("left", (d3.event.pageX + 10) + "px")
                         .style("top", (d3.event.pageY - 10) + "px")
-                        .select("#value2")
+                        .select("#value1")
                         .html(
                             "Cell type: " + colLabel[d.col] + "<br>Sample name: " + rowLabel[d.row]
                             + "<br>Value: " + d.value
                         );
                     //Show the tooltip
-                    d3.select("#d3tooltip2").transition()
+                    d3.select("#d3tooltip1").transition()
                         .duration(200)
                         .style("opacity", .9);
                 })
@@ -579,7 +579,7 @@
                     d3.select(this).classed("cell-hover", false);
                     d3.selectAll(".rowLabel").classed("text-highlight", false);
                     d3.selectAll(".colLabel").classed("text-highlight", false);
-                    d3.select("#d3tooltip2").transition()
+                    d3.select("#d3tooltip1").transition()
                         .duration(200)
                         .style("opacity", 0);
                 })
